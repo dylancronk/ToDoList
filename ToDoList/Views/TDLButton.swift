@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct TDLButton: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  let title: String
+  let backgroundColor: Color
+  let action: () -> Void
+  var body: some View {
+    Button {
+      action()
+    } label: {
+      ZStack {
+        RoundedRectangle(cornerRadius: 10)
+          .foregroundStyle(backgroundColor)
+        Text(title)
+          .foregroundStyle(.white)
+      }
     }
+  }
 }
 
 #Preview {
-    TDLButton()
+  TDLButton(title: "Title", backgroundColor: .pink) {
+    
+  }
 }

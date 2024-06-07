@@ -7,18 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+struct MainView: View {
+  @StateObject var viewModel = MainViewViewModel()
+  var body: some View {
+    VStack {
+      if viewModel.isSignedIn, !viewModel.currentUserId.isEmpty {
+        TabView {
+          ToDoListView(userId: viewModel.currentUserId).tabItem {
+            Label("home", systemImage: "house")
+          }
+          
+          ProfileView().tabItem {
+            Label("Profile", systemImage: "person.circle")
+          }
         }
-        .padding()
+        
+      } else {
+        LoginView()
+      }
     }
+  }
 }
 
 #Preview {
-    ContentView()
+  MainView()
 }
